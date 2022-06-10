@@ -15,13 +15,14 @@ import { lists } from './schema';
 import { withAuth, session } from './auth';
 
 import 'dotenv/config';
+import { insertSeedData } from './seed-data';
 
 const databaseURL = process.env.DATABASE_URL || 'postgres://localhost/keystone';
 
 const sessionConfig = {
   maxAge: 60 * 60 * 24 * 360,
-  secret: process.env.COOKIE_SECRET
-}
+  secret: process.env.COOKIE_SECRET,
+};
 
 export default withAuth(
   // Using the config function helps typescript guide you to the available options.
@@ -30,12 +31,21 @@ export default withAuth(
     db: {
       provider: 'postgresql',
       url: databaseURL,
-      prismaPreviewFeatures: ['dataProxy'],
+      async onConnect(context) {
+        console.log('Connected to database');
+        if (process.argv.includes('--seed-data')) {
+          await insertSeedData(context);
+        }
+      },
     },
     // This config allows us to set up features of the Admin UI https://keystonejs.com/docs/apis/config#ui
     ui: {
       // For our starter, we check that someone has session data before letting them see the Admin UI.
-      isAccessAllowed: () => true,// (context) => !!context.session?.data,
+      isAccessAllowed: (context) => {
+        console.log(context.session);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        return !!context.session?.data;
+      },
     },
     lists,
     session,
@@ -43,7 +53,7 @@ export default withAuth(
       cors: {
         origin: [process.env.FRONTEND_URL || 'http://localhost:3000'],
         credentials: true,
-      }
-    }
+      },
+    },
   })
 );

@@ -17,17 +17,22 @@ const GlobalStyles = createGlobalStyle`
 
 }
 html {
+    --yellow: #ffc600;
+    --light: #ffffff;
+    --dark: #000000;    
+    --lightGray: var(--lightGrey);
+    --imGoingToFaint: #fbfbfb;        
     --red: #ff0000;
     --black: #393939;
     --grey: #3A3A3A;
     --gray: var(--grey);
-    --lightGrey: #e1e1e1;
+    --lightGrey: #d8d8d8;
     --lightGray: var(--lightGrey);
     --offWhite: #ededed;
-    --maxWidth: 1000px;
+    --maxWidth: 1200px;
     --bs: 0 12px 24px 0 rgba(0,0,0,0.09);
     box-sizing: border-box;
-    /* font-size: 10px; */
+    font-size: 10px;
   }
   *, *:before, *:after {
     box-sizing: inherit;

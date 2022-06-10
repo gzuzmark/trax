@@ -1,3 +1,6 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Lists } from '.keystone/types';
+
 /*
 Welcome to the schema! The schema is the heart of Keystone.
 
@@ -35,36 +38,16 @@ import { document } from '@keystone-6/fields-document';
 // By providing the Keystone generated `Lists` type to our lists object, we refine
 // our types to a stricter subset that is type-aware of other lists in our schema
 // that Typescript cannot easily infer.
-import { Lists } from '.keystone/types';
+import { Product } from './schemas/Products';
+import { ProductImage } from './schemas/ProductImage';
+import { User } from './schemas/User';
 
 // We have a users list, a blogs list, and tags for blog posts, so they can be filtered.
 // Each property on the exported object will become the name of a list (a.k.a. the `listKey`),
 // with the value being the definition of the list, including the fields.
 export const lists: Lists = {
   // Here we define the user list.
-  User: list({
-    // Here are the fields that `User` will have. We want an email and password so they can log in
-    // a name so we can refer to them, and a way to connect users to posts.
-    fields: {
-      name: text({ validation: { isRequired: true } }),
-      email: text({
-        validation: { isRequired: true },
-        isIndexed: 'unique',
-        isFilterable: true,
-      }),
-      // The password field takes care of hiding details and hashing values
-      password: password({ validation: { isRequired: true } }),
-      // Relationships allow us to reference other lists. In this case,
-      // we want a user to have many posts, and we are saying that the user
-      // should be referencable by the 'author' field of posts.
-      // Make sure you read the docs to understand how they work: https://keystonejs.com/docs/guides/relationships#understanding-relationships
-      // posts: relationship({ ref: 'Post.author', many: true }),
-    },
-    // Here we can configure the Admin UI. We want to show a user's name and posts in the Admin UI
-    ui: {
-      listView: {
-        initialColumns: ['name'],
-      },
-    },
-  }), 
+  User,
+  Product,
+  ProductImage,
 };

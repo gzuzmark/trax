@@ -1,8 +1,9 @@
 // import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import type { AppProps } from 'next/app';
-
+import { ApolloProvider } from '@apollo/client';
 import NProgress from 'nprogress';
 import Router from 'next/router';
+import { useApollo } from '../lib/withData';
 import Page from '../components/Page';
 import 'nprogress/nprogress.css';
 
@@ -46,12 +47,15 @@ Router.events.on('routeChangeError', () => {
   NProgress.done();
 });
 
-const MyApp = ({ Component, pageProps }: AppProps) => (
-  <>
-    <Page>
-      <Component {...pageProps} />
-    </Page>
-  </>
-);
+const MyApp = ({ Component, pageProps }: AppProps) => {
+  const apolloClient = useApollo(pageProps);
+  return (
+    <ApolloProvider client={apolloClient}>
+      <Page>
+        <Component {...pageProps} />
+      </Page>
+    </ApolloProvider>
+  );
+};
 
 export default MyApp;

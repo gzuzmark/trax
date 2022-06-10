@@ -16,6 +16,6 @@
     "incremental": true
   },
   "baseUrl": ".",
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "lib/withData.js", "lib/useForm.js", "pages/product/[id].js"],
   "exclude": ["node_modules"]
 }

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2015",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -16,6 +16,6 @@
     "incremental": true
   },
   "baseUrl": ".",
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "lib/withData.js", "lib/useForm.js", "pages/product/[id].js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "lib/withData.ts", "lib/useForm.js", "pages/product/[id].tsx"],
   "exclude": ["node_modules"]
 }

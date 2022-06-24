@@ -6,6 +6,7 @@ import Router from 'next/router';
 import { useApollo } from '../lib/withData';
 import Page from '../components/Page';
 import 'nprogress/nprogress.css';
+import { CartStateProvider } from '../lib/CartState';
 
 // TODO: Add chakraUI theme, for now we are stiking with styled components
 // const theme = extendTheme({
@@ -51,9 +52,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   const apolloClient = useApollo(pageProps);
   return (
     <ApolloProvider client={apolloClient}>
-      <Page>
-        <Component {...pageProps} />
-      </Page>
+      <CartStateProvider>
+        <Page>
+          <Component {...pageProps} />
+        </Page>
+      </CartStateProvider>
     </ApolloProvider>
   );
 };

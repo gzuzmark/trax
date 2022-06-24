@@ -2,7 +2,7 @@ export interface IProduct {
   id: string;
   name: string;
   description: string;
-  photo: Record<string, any>;
+  photo: { image: { publicUrlTransformed: string }; altText: string };
   image: string;
   price: number;
   status: string;

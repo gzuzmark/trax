@@ -41,6 +41,9 @@ import { document } from '@keystone-6/fields-document';
 import { Product } from './schemas/Products';
 import { ProductImage } from './schemas/ProductImage';
 import { User } from './schemas/User';
+import { CartItem } from './schemas/CartItem';
+import { OrderItem } from './schemas/OrderItem';
+import { Order } from './schemas/Order';
 
 // We have a users list, a blogs list, and tags for blog posts, so they can be filtered.
 // Each property on the exported object will become the name of a list (a.k.a. the `listKey`),
@@ -50,4 +53,7 @@ export const lists: Lists = {
   User,
   Product,
   ProductImage,
+  CartItem,
+  OrderItem,
+  Order,
 };

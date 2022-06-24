@@ -1,8 +1,14 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { IProduct } from '../components/types/Product';
 
-export default function useForm(initial = {}) {
+export default function useForm(
+  initial: Record<string, string | number | readonly string[] | undefined>
+) {
   // create a state object for our inputs
-  const [inputs, setInputs] = useState(initial);
+  const [inputs, setInputs] =
+    useState<Record<string, string | number | readonly string[] | undefined>>(
+      initial
+    );
   const initialValues = Object.values(initial).join('');
 
   useEffect(() => {
@@ -16,18 +22,22 @@ export default function useForm(initial = {}) {
   //   price: 1000
   // }
 
-  function handleChange(e) {
-    let { value, name, type } = e.target;
-    if (type === 'number') {
-      value = parseInt(value);
-    }
+  function handleChange(
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
+    const { value, name, type } = e.target;
+    let helperValue: string | number | File =
+      type === 'number' ? parseFloat(value) : value;
+
     if (type === 'file') {
-      value = e.target.files[0];
+      const target = e.target as HTMLInputElement;
+      // eslint-disable-next-line prefer-destructuring
+      [helperValue] = target.files || '';
     }
     setInputs({
       // copy the existing state
       ...inputs,
-      [name]: value,
+      [name]: helperValue as string | number | readonly string[] | undefined,
     });
   }
 

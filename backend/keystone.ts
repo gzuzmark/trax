@@ -1,3 +1,5 @@
+import { config } from '@keystone-6/core';
+import { extendGraphqlSchema } from './mutations/index';
 /*
 Welcome to Keystone! This file is what keystone uses to start the app.
 
@@ -5,8 +7,6 @@ It looks at the default export, and expects a Keystone config object.
 
 You can find all the config options in our docs here: https://keystonejs.com/docs/apis/config
 */
-
-import { config } from '@keystone-6/core';
 
 // Look in the schema file for how we define our lists, and how users interact with them through graphql or the Admin UI
 import { lists } from './schema';
@@ -48,6 +48,7 @@ export default withAuth(
       },
     },
     lists,
+    extendGraphqlSchema,
     session,
     server: {
       cors: {

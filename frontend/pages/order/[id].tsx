@@ -9,7 +9,7 @@ import formatMoney from '../../lib/formatMoney';
 
 export const orderValidator = z.object({
   id: z.string(),
-  charge: z.string(),
+  charge: z.string().optional(),
   total: z.number(),
   items: z.array(
     z.object({

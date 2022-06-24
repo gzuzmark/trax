@@ -1,5 +1,5 @@
 import { list } from '@keystone-6/core';
-import { password, text } from '@keystone-6/core/fields';
+import { password, relationship, text } from '@keystone-6/core/fields';
 
 export const User = list({
   // Here are the fields that `User` will have. We want an email and password so they can log in
@@ -19,6 +19,18 @@ export const User = list({
     // should be referencable by the 'author' field of posts.
     // Make sure you read the docs to understand how they work: https://keystonejs.com/docs/guides/relationships#understanding-relationships
     // posts: relationship({ ref: 'Post.author', many: true }),
+    cart: relationship({
+      ref: 'CartItem.user',
+      many: true,
+      ui: {
+        createView: { fieldMode: 'hidden' },
+        itemView: { fieldMode: 'read' },
+      },
+    }),
+    orders: relationship({
+      ref: 'Order.user',
+      many: true,
+    }),
   },
   // Here we can configure the Admin UI. We want to show a user's name and posts in the Admin UI
   ui: {

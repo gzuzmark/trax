@@ -63,7 +63,7 @@ const InnerStyles = styled.div`
   padding: 2rem;
 `;
 
-const PageLayout: FC<Page> = ({ children }) => (
+const PageLayout: FC = ({ children }) => (
   // <Box width="100vw" height="100vh">
   //   <Box position="absolute" top="0" width="250px" left="0">
   //     {/* <Sidebar /> */}

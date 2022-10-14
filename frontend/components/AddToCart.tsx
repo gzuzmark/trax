@@ -21,7 +21,7 @@ const AddToCart = ({ id }: AddToCartProps) => {
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
   return (
-    <button type="button" onClick={addToCart}>
+    <button type="button" onClick={() => addToCart()}>
       Add{loading && 'ing...'} to cart 🛒
     </button>
   );

@@ -22,7 +22,7 @@ const Pagination: FC<PaginationProps> = ({ page }) => {
     useQuery<Record<string, number>>(PAGINATION_QUERY);
   if (loading) return <p>...loading</p>;
   if (error) return <DisplayError error={error} />;
-  const { count } = data;
+  const { count } = data || {};
   const pageCount = Math.ceil(count / perPage);
   return (
     <PaginationStyles>

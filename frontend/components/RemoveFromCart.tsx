@@ -38,7 +38,7 @@ const RemoveFromCart = ({ id }: RemoveFromCartProps) => {
       update(cache, payload) {
         cache.evict(
           // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-          cache.identify(payload?.data?.deleteCartItem)
+          cache.identify(payload.data.deleteCartItem) as Cache.EvictOptions
         );
       },
       // optimisticResponse: {

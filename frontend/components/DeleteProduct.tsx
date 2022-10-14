@@ -1,4 +1,4 @@
-import { ApolloCache, StoreObject, useMutation } from '@apollo/client';
+import { ApolloCache, Cache, StoreObject, useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import { FC } from 'react';
 
@@ -15,21 +15,23 @@ const DELETE_PRODUCT_MUTATION = gql`
   }
 `;
 
-function update(
-  cache: ApolloCache<unknown>,
-  payload: { data: Record<string, unknown> }
-) {
-  // const { deleteProduct } = payload.data;
-  // const identifierCache = cache.identify(deleteProduct as StoreObject);
-  cache.evict(cache.identify(payload.data.deleteProduct));
-}
+// function update(
+//   cache: ApolloCache<unknown>,
+//   payload: { data: Record<string, unknown> }
+// ) {
+//   // const { deleteProduct } = payload.data;
+//   // const identifierCache = cache.identify(deleteProduct as StoreObject);
+//   cache.evict(cache.identify(payload.data.deleteProduct));
+// }
 
 const DeleteProduct: FC<DeleteProductProps> = ({ id, children }) => {
   const [deleteProduct, { loading, error }] = useMutation(
     DELETE_PRODUCT_MUTATION,
     {
       variables: { id },
-      update,
+      update: function(cache, payload) {
+        cache.evict(cache.identify(payload.data.deleteProduct) as Cache.EvictOptions);
+      },
     }
   );
   return (

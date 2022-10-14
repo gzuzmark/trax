@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import styled from 'styled-components';
-import { loadStripe } from '@stripe/stripe-js';
+import { loadStripe, StripeError } from '@stripe/stripe-js';
 import {
   CardElement,
   Elements,
@@ -43,7 +43,7 @@ const CREATE_ORDER_MUTATION = gql`
 const stripeLib = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY || '');
 
 function CheckoutForm() {
-  const [error, setError] = useState();
+  const [error, setError] = useState<StripeError>();
   const [loading, setLoading] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
@@ -55,7 +55,7 @@ function CheckoutForm() {
       refetchQueries: [{ query: CURRENT_USER_QUERY }],
     }
   );
-  async function handleSubmit(e) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     // 1. Stop the form from submitting and turn the loader one
     e.preventDefault();
     setLoading(true);
@@ -64,10 +64,10 @@ function CheckoutForm() {
     nProgress.start();
     // 3. Create the payment method via stripe (Token comes back here if successful)
     const { error: stripeError, paymentMethod } =
-      await stripe.createPaymentMethod({
+      await stripe?.createPaymentMethod({
         type: 'card',
-        card: elements.getElement(CardElement),
-      });
+        card: elements?.getElement(CardElement) || { token: ''},
+      }) || {};
     console.log(paymentMethod);
 
     // 4. Handle any errors from stripe
@@ -79,7 +79,7 @@ function CheckoutForm() {
     // 5. Send the token from step 3 to our keystone server, via a custom mutation!
     const order = await checkout({
       variables: {
-        token: paymentMethod.id,
+        token: paymentMethod?.id,
       },
     });
     // 6. Change the page to view the order

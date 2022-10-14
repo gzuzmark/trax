@@ -98,7 +98,7 @@ const Search = () => {
             </DropDownItem>
           ))}
         {isOpen && !items.length && !loading && (
-          <DropDownItem>Sorry, no items found for {inputValue}</DropDownItem>
+          <DropDownItem  highlighted={false}>Sorry, no items found for {inputValue}</DropDownItem>
         )}
       </DropDown>
     </SearchStyles>

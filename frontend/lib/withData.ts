@@ -51,8 +51,10 @@ function createApolloClient(): ApolloClient<NormalizedCacheObject> {
     cache: new InMemoryCache({
       typePolicies: {
         Query: {
-          fields: {
-            products: paginationField(),
+          fields: {            
+            products: function() {
+              return paginationField();
+            },
           },
         },
       },

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
-import { FC, Props } from 'react';
+import { FC } from 'react';
 import UpdateProduct from '../components/UpdateProduct';
 import { SINGLE_ITEM_QUERY } from '../components/SingleProduct';
 import { initializeApollo } from '../lib/withData';

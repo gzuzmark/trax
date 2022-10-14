@@ -45,7 +45,7 @@ const SignIn = () => {
     password: '',
   });
 
-  const [signin, { loading, data }] = useMutation<SignInResponse>(
+  const [signin, { loading, data }] = useMutation(
     SIGNIN_MUTATION,
     {
       variables: { ...inputs },

@@ -62,7 +62,8 @@ const Reset: FC<ResetProps> = ({ token }) => {
   return (
     <Form method="POST" onSubmit={handleSubmit}>
       <h2>Reset Your Password</h2>
-      <Error error={error || successfulError} />
+      {/* <Error error={error || successfulError} /> */}
+      <Error error={error} />
       <fieldset disabled={loading} aria-busy={loading}>
         {data?.redeemUserPasswordResetToken === null && (
           <p>Success! You can Now sign in</p>

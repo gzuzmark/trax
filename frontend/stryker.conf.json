@@ -1,0 +1,8 @@
+{
+  "testRunner": "jest",
+  "jest": {
+    "projectType": "custom"
+  },
+  "checkers": ["typescript"],
+  "tsconfigFile": "tsconfig.json"
+}
